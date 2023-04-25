@@ -12,8 +12,8 @@
         public string? DescricaoItem { get; set; }
         public string? NomeFuncionario { get; set; }
 
-        public int IdFuncionario { get; set; }
-        public int IdProduto { get; set; }
+        public int? IdFuncionario { get; set; }
+        public int? IdProduto { get; set; }
 
         public virtual ProdutoModel? Produto { get; set; }
         public virtual FuncionarioModel? Funcionario { get; set; }

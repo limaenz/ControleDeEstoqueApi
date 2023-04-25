@@ -5,9 +5,9 @@ namespace ControleEstoqueApi.Repositories.Interfaces
     public interface IProdutoRepositorio
     {
         Task<List<ProdutoModel>> BuscarTodosOsProdutos();
-        Task<ProdutoModel> BuscarPorId(int id);
+        Task<ProdutoModel> BuscarPorCodigoItem(string codigoItem);
         Task<ProdutoModel> Adicionar(ProdutoModel produto);
-        Task<ProdutoModel> Atualizar(ProdutoModel produto, int id);
-        Task<bool> Apagar(int id);
+        Task<ProdutoModel> Atualizar(ProdutoModel produto, string codigoItem);
+        Task<bool> Apagar(string codigoItem);
     }
 }

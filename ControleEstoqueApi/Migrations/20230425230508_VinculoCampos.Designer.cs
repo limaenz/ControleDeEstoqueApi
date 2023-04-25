@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleEstoqueApi.Migrations
 {
     [DbContext(typeof(ControleEstoqueDbContext))]
-    [Migration("20230425022000_VinculoEstoque")]
-    partial class VinculoEstoque
+    [Migration("20230425230508_VinculoCampos")]
+    partial class VinculoCampos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,11 +36,11 @@ namespace ControleEstoqueApi.Migrations
                     b.Property<string>("CodigoItem")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DataDeEntrada")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("DataDeEntrada")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("DataDeSaida")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("DataDeSaida")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DescricaoItem")
                         .HasColumnType("nvarchar(max)");
@@ -48,10 +48,10 @@ namespace ControleEstoqueApi.Migrations
                     b.Property<int?>("FuncionarioId")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdFuncionario")
+                    b.Property<int?>("IdFuncionario")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdProduto")
+                    b.Property<int?>("IdProduto")
                         .HasColumnType("int");
 
                     b.Property<string>("NomeFuncionario")

@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ControleEstoqueApi.Migrations
 {
     /// <inheritdoc />
-    public partial class VinculoEstoque : Migration
+    public partial class VinculoCampos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,13 +34,13 @@ namespace ControleEstoqueApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantidade = table.Column<int>(type: "int", nullable: true),
                     PrecoUnitario = table.Column<int>(type: "int", nullable: true),
-                    DataDeEntrada = table.Column<int>(type: "int", nullable: true),
-                    DataDeSaida = table.Column<int>(type: "int", nullable: true),
+                    DataDeEntrada = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DataDeSaida = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CodigoItem = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DescricaoItem = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NomeFuncionario = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdFuncionario = table.Column<int>(type: "int", nullable: false),
-                    IdProduto = table.Column<int>(type: "int", nullable: false),
+                    IdFuncionario = table.Column<int>(type: "int", nullable: true),
+                    IdProduto = table.Column<int>(type: "int", nullable: true),
                     ProdutoId = table.Column<int>(type: "int", nullable: true),
                     FuncionarioId = table.Column<int>(type: "int", nullable: true)
                 },

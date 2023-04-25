@@ -10,8 +10,8 @@ namespace ControleEstoqueApi.Data.Map
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Codigo).IsRequired().HasMaxLength(10);
-            builder.Property(x => x.Descricao).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Quantidade).IsRequired().HasMaxLength(1000);
+            builder.Property(x => x.Descricao).HasMaxLength(50);
+            builder.Property(x => x.Quantidade).HasMaxLength(1000);
         }
     }
 }

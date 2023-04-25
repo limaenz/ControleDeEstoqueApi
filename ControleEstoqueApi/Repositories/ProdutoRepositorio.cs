@@ -15,9 +15,9 @@ namespace ControleEstoqueApi.Repositories
             _dbContext = controleEstoqueDbContext;
         }
 
-        public async Task<ProdutoModel> BuscarPorId(int id)
+        public async Task<ProdutoModel> BuscarPorCodigoItem(string codigoItem)
         {
-            return await _dbContext.Produto.FirstOrDefaultAsync(X => X.Id == id);
+            return await _dbContext.Produto.FirstOrDefaultAsync(X => X.Codigo == codigoItem);
         }
 
         public async Task<List<ProdutoModel>> BuscarTodosOsProdutos()
@@ -32,12 +32,12 @@ namespace ControleEstoqueApi.Repositories
 
             return produto;
         }
-        public async Task<ProdutoModel> Atualizar(ProdutoModel produto, int id)
+        public async Task<ProdutoModel> Atualizar(ProdutoModel produto, string codigoItem)
         {
-            var produtoPorId = await BuscarPorId(id);
+            var produtoPorId = await BuscarPorCodigoItem(codigoItem);
 
             if (produtoPorId is null)
-                throw new Exception($"Usuário para o ID: {id} não foi encontrado.");
+                throw new Exception($"Usuário para o ID: {codigoItem} não foi encontrado.");
 
             produtoPorId.Codigo = produto.Codigo;
             produtoPorId.Descricao = produto.Descricao;
@@ -49,12 +49,12 @@ namespace ControleEstoqueApi.Repositories
             return produtoPorId;
         }
 
-        public async Task<bool> Apagar(int id)
+        public async Task<bool> Apagar(string codigoItem)
         {
-            var produtoPorId = await BuscarPorId(id);
+            var produtoPorId = await BuscarPorCodigoItem(codigoItem);
 
             if (produtoPorId is null)
-                throw new Exception($"Usuário para o ID: {id} não foi encontrado.");
+                throw new Exception($"Usuário para o ID: {codigoItem} não foi encontrado.");
 
             _dbContext.Produto.Remove(produtoPorId);
             await _dbContext.SaveChangesAsync();
