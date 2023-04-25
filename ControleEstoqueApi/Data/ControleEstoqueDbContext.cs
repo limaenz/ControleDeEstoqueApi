@@ -1,4 +1,5 @@
-﻿using ControleEstoqueApi.Models;
+﻿using ControleEstoqueApi.Data.Map;
+using ControleEstoqueApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ControleEstoqueApi.Data
@@ -11,9 +12,13 @@ namespace ControleEstoqueApi.Data
         }
 
         public DbSet<FuncionarioModel> Funcionarios { get; set; }
+        public DbSet<EstoqueModel> Estoque { get; set; }
+        public DbSet<ProdutoModel> Produto { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new FuncionarioMap());
+
             base.OnModelCreating(modelBuilder); 
         }
     }

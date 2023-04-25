@@ -1,4 +1,5 @@
 ﻿using ControleEstoqueApi.Models;
+using ControleEstoqueApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -8,35 +9,47 @@ namespace ControleEstoqueApi.Controllers
     [ApiController]
     public class FuncionarioController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<FuncionarioModel>> BuscarTodosUsuarios()
-        {
+        private readonly IFuncionarioRepositorio _funcionarioRepositorio;
 
-            return Ok();
+        public FuncionarioController(IFuncionarioRepositorio funcionarioRepositorio)
+        {
+            _funcionarioRepositorio = funcionarioRepositorio;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<FuncionarioModel>>> BuscarTodosUsuarios()
+        {
+            List<FuncionarioModel> funcionarios = await _funcionarioRepositorio.BuscarTodosOsFuncionarios();
+            return Ok(funcionarios);
         }
 
         [HttpGet("{id}")]
-        public FuncionarioModel Get(int id)
+        public async Task<ActionResult<FuncionarioModel>> BuscarPorId(int id)
         {
-
-            return new FuncionarioModel();
+            FuncionarioModel funcionario = await _funcionarioRepositorio.BuscarPorId(id);
+            return Ok(funcionario);
         }
 
         [HttpPost]
-        public void Post([FromBody] FuncionarioModel usuario)
+        public async Task<ActionResult<FuncionarioModel>> Cadastar([FromBody] FuncionarioModel funcionarioModel)
         {
-
-
+            FuncionarioModel  funcionario = await _funcionarioRepositorio.Adicionar(funcionarioModel);
+            return Ok(funcionario);
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] FuncionarioModel usuario)
+        public async Task<ActionResult<FuncionarioModel>> Atualizar([FromBody] FuncionarioModel funcionarioModel, int id)
         {
+            funcionarioModel.Id = id;
+            FuncionarioModel funcionario = await _funcionarioRepositorio.Atualizar(funcionarioModel, id);
+            return Ok(funcionario);
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<FuncionarioModel>> Apagar(int id)
         {
+            bool apagado = await _funcionarioRepositorio.Apagar(id);
+            return Ok(apagado);
         }
     }
 }

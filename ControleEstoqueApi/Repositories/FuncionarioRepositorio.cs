@@ -25,7 +25,7 @@ namespace ControleEstoqueApi.Repositories
             return await _dbContext.Funcionarios.ToListAsync();
         }
 
-        public async Task<FuncionarioModel> Adicioanr(FuncionarioModel funcionario)
+        public async Task<FuncionarioModel> Adicionar(FuncionarioModel funcionario)
         {
             await _dbContext.Funcionarios.AddAsync(funcionario);
             await _dbContext.SaveChangesAsync();

@@ -1,6 +1,7 @@
 using ControleEstoqueApi.Data;
 using ControleEstoqueApi.Repositories;
 using ControleEstoqueApi.Repositories.Interfaces;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddEntityFrameworkSqlServer()
     .AddDbContext<ControleEstoqueDbContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database"))
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("ControleEstoque"))
     );
 
 builder.Services.AddScoped<IFuncionarioRepositorio, FuncionarioRepositorio>();
@@ -31,7 +32,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
- 
+
 app.MapControllers();
 
 app.Run();
