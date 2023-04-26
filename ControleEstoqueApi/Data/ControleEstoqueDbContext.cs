@@ -18,6 +18,8 @@ namespace ControleEstoqueApi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new FuncionarioMap());
+            modelBuilder.ApplyConfiguration(new ProdutoMap());
+            modelBuilder.ApplyConfiguration(new EstoqueMap());
 
             base.OnModelCreating(modelBuilder); 
         }

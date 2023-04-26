@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleEstoqueApi.Migrations
 {
     [DbContext(typeof(ControleEstoqueDbContext))]
-    [Migration("20230425230508_VinculoCampos")]
-    partial class VinculoCampos
+    [Migration("20230426011317_CriacaoBaseControleEstoque")]
+    partial class CriacaoBaseControleEstoque
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,8 +33,14 @@ namespace ControleEstoqueApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CodigoItem")
+                    b.Property<string>("Codigo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CodigoItem")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime?>("DataDeEntrada")
                         .HasColumnType("datetime2");
@@ -42,28 +48,23 @@ namespace ControleEstoqueApi.Migrations
                     b.Property<DateTime?>("DataDeSaida")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DescricaoItem")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("FuncionarioId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdFuncionario")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdProduto")
-                        .HasColumnType("int");
-
                     b.Property<string>("NomeFuncionario")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("PrecoUnitario")
-                        .HasColumnType("int");
+                    b.Property<double?>("PrecoUnitario")
+                        .IsRequired()
+                        .HasColumnType("float");
 
                     b.Property<int?>("ProdutoId")
                         .HasColumnType("int");
 
                     b.Property<int?>("Quantidade")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -95,8 +96,8 @@ namespace ControleEstoqueApi.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Senha")
-                        .HasColumnType("int");
+                    b.Property<string>("Senha")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -112,12 +113,19 @@ namespace ControleEstoqueApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Codigo")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Descricao")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Quantidade")
+                        .HasMaxLength(1000)
                         .HasColumnType("int");
 
                     b.HasKey("Id");
