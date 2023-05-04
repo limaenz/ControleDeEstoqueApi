@@ -7,7 +7,7 @@
 
 ## 🔖 Sobre
 
-O projeto **Controle de estoque api** foi criado com o intuito de colocar em prática meus conhecimentos sobre c# e criar uma API, também para um projeto de faculdade.
+O projeto **Controle de estoque api** foi criado com o intuito de colocar em prática meus conhecimentos sobre c# e criar uma API, e também para um projeto de faculdade, onde vai ser consumido pelo front-end.
 
 ---
 
