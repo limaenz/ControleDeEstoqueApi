@@ -1,8 +1,6 @@
 # ControleEstoqueApi
 
-<h1 align="center">
-  ![alt text]https://cakeerp.com/wp-content/uploads/2019/11/1-3.png
-</h1>
+![alt text](https://cakeerp.com/wp-content/uploads/2019/11/1-3.png)
 
 # Indice 
   - [🔖 Sobre](#-sobre)
