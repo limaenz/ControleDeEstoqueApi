@@ -1,6 +1,6 @@
-# ControleEstoqueApi
+# Controle de estoque
 
-![alt text](https://cakeerp.com/wp-content/uploads/2019/11/1-3.png)
+![alt text](https://www.phsoft.com.br/wp-content/uploads/2020/10/controle-estoque.png)
 
 # Indice 
   - [🔖 Sobre](#-sobre)
