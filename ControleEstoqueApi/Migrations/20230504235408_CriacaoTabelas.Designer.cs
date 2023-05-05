@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleEstoqueApi.Migrations
 {
     [DbContext(typeof(ControleEstoqueDbContext))]
-    [Migration("20230426011317_CriacaoBaseControleEstoque")]
-    partial class CriacaoBaseControleEstoque
+    [Migration("20230504235408_CriacaoTabelas")]
+    partial class CriacaoTabelas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

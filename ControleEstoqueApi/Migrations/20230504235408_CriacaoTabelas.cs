@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ControleEstoqueApi.Migrations
 {
     /// <inheritdoc />
-    public partial class CriacaoBaseControleEstoque : Migration
+    public partial class CriacaoTabelas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
