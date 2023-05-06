@@ -1,7 +1,10 @@
-﻿using ControleEstoqueApi.Models;
+﻿using Azure.Core;
+using ControleEstoqueApi.Models;
 using ControleEstoqueApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ControleEstoqueApi.Controllers
 {
@@ -33,7 +36,7 @@ namespace ControleEstoqueApi.Controllers
         [HttpPost]
         public async Task<ActionResult<FuncionarioModel>> Cadastar([FromBody] FuncionarioModel funcionarioModel)
         {
-            FuncionarioModel  funcionario = await _funcionarioRepositorio.Adicionar(funcionarioModel);
+            FuncionarioModel funcionario = await _funcionarioRepositorio.Adicionar(funcionarioModel);
             return Ok(funcionario);
         }
 
@@ -50,6 +53,19 @@ namespace ControleEstoqueApi.Controllers
         {
             bool apagado = await _funcionarioRepositorio.Apagar(id);
             return Ok(apagado);
+        }
+
+        [HttpPost("{login}")]
+        public async Task<ActionResult<FuncionarioModel>> Login([FromBody] FuncionarioModel funcionario)
+        {
+            var usuario = await _funcionarioRepositorio.Login(funcionario);
+
+            if (usuario == null)
+            {
+                return BadRequest("Credenciais inválidas.");
+            }
+
+            return Ok(usuario);
         }
     }
 }

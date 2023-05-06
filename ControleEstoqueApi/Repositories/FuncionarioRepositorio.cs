@@ -1,9 +1,10 @@
-﻿using ControleEstoqueApi.Data;
+﻿using Azure.Core;
+using ControleEstoqueApi.Data;
 using ControleEstoqueApi.Models;
 using ControleEstoqueApi.Repositories.Interfaces;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.WebEncoders.Testing;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ControleEstoqueApi.Repositories
 {
@@ -18,6 +19,10 @@ namespace ControleEstoqueApi.Repositories
         public async Task<FuncionarioModel> BuscarPorId(int id)
         {
             return await _dbContext.Funcionarios.FirstOrDefaultAsync(X => X.Id == id);
+        }
+        public async Task<FuncionarioModel> BuscarPorCPF(string cpf)
+        {
+            return await _dbContext.Funcionarios.FirstOrDefaultAsync(X => X.CPF == cpf);
         }
 
         public async Task<List<FuncionarioModel>> BuscarTodosOsFuncionarios()
@@ -59,6 +64,19 @@ namespace ControleEstoqueApi.Repositories
             await _dbContext.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<FuncionarioModel> Login(FuncionarioModel funcionario)
+        {
+            var usuario = await _dbContext.Funcionarios.FirstOrDefaultAsync(U => U.CPF == funcionario.CPF);
+            var senha = await _dbContext.Funcionarios.FirstOrDefaultAsync(U => U.Senha == funcionario.Senha);
+            
+            if (usuario == null || senha == null)
+            {
+                return null;
+            }
+
+            return usuario;
         }
     }
 }
