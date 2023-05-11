@@ -37,6 +37,12 @@ namespace ControleEstoqueApi.Controllers
         public async Task<ActionResult<FuncionarioModel>> Cadastar([FromBody] FuncionarioModel funcionarioModel)
         {
             FuncionarioModel funcionario = await _funcionarioRepositorio.Adicionar(funcionarioModel);
+
+            if (funcionario == null)
+            {
+                return BadRequest("Credenciais inválidas.");
+            }
+
             return Ok(funcionario);
         }
 
@@ -55,7 +61,7 @@ namespace ControleEstoqueApi.Controllers
             return Ok(apagado);
         }
 
-        [HttpPost("{login}")]
+        [HttpPost("login")]
         public async Task<ActionResult<FuncionarioModel>> Login([FromBody] FuncionarioModel funcionario)
         {
             var usuario = await _funcionarioRepositorio.Login(funcionario);

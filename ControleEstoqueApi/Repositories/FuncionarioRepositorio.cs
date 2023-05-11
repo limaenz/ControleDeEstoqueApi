@@ -32,10 +32,18 @@ namespace ControleEstoqueApi.Repositories
 
         public async Task<FuncionarioModel> Adicionar(FuncionarioModel funcionario)
         {
-            await _dbContext.Funcionarios.AddAsync(funcionario);
-            await _dbContext.SaveChangesAsync();
-
-            return funcionario;
+            FuncionarioModel usuario = await _dbContext.Funcionarios.FirstOrDefaultAsync(U => U.CPF == funcionario.CPF);
+            
+            if (usuario != null)
+            {
+                return null;
+            }
+            else
+            {
+                await _dbContext.Funcionarios.AddAsync(funcionario);
+                await _dbContext.SaveChangesAsync();
+                return funcionario;
+            }
         }
         public async Task<FuncionarioModel> Atualizar(FuncionarioModel funcionario, int id)
         {
@@ -70,7 +78,7 @@ namespace ControleEstoqueApi.Repositories
         {
             var usuario = await _dbContext.Funcionarios.FirstOrDefaultAsync(U => U.CPF == funcionario.CPF);
             var senha = await _dbContext.Funcionarios.FirstOrDefaultAsync(U => U.Senha == funcionario.Senha);
-            
+
             if (usuario == null || senha == null)
             {
                 return null;
