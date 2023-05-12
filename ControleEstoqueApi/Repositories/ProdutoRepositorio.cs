@@ -17,7 +17,7 @@ namespace ControleEstoqueApi.Repositories
 
         public async Task<ProdutoModel> BuscarPorCodigoItem(string codigoItem)
         {
-            return await _dbContext.Produto.FirstOrDefaultAsync(X => X.Codigo == codigoItem);
+            return await _dbContext.Produto.FirstOrDefaultAsync(x => x.Codigo == codigoItem);
         }
 
         public async Task<List<ProdutoModel>> BuscarTodosOsProdutos()
@@ -25,12 +25,18 @@ namespace ControleEstoqueApi.Repositories
             return await _dbContext.Produto.ToListAsync();
         }
 
-        public async Task<ProdutoModel> Adicionar(ProdutoModel produto)
+        public async Task<ProdutoModel> Adicionar(ProdutoModel produtoModel)
         {
-            await _dbContext.Produto.AddAsync(produto);
-            await _dbContext.SaveChangesAsync();
+            ProdutoModel produto = await _dbContext.Produto.FirstOrDefaultAsync(x => x.Codigo == produtoModel.Codigo);
 
-            return produto;
+            if (produto != null)
+                return null;
+            else
+            {
+                await _dbContext.Produto.AddAsync(produtoModel);
+                await _dbContext.SaveChangesAsync();
+                return produtoModel;
+            }
         }
         public async Task<ProdutoModel> Atualizar(ProdutoModel produto, string codigoItem)
         {

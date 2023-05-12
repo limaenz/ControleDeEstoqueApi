@@ -11,10 +11,14 @@ namespace ControleEstoqueApi.Controllers
     {
         private readonly IEstoqueRepositorio _estoqueRepositorio;
         private readonly IProdutoRepositorio _produtoRepositorio;
+        private readonly IFuncionarioRepositorio _funcionarioRepositorio;
 
-        public EstoqueController(IEstoqueRepositorio estoqueRepositorio)
+        public EstoqueController(IEstoqueRepositorio estoqueRepositorio, IProdutoRepositorio produtoRepositorio,
+            IFuncionarioRepositorio funcionarioRepositorio)
         {
             _estoqueRepositorio = estoqueRepositorio;
+            _produtoRepositorio = produtoRepositorio;
+            _funcionarioRepositorio = funcionarioRepositorio;
         }
 
         [HttpGet]
@@ -34,12 +38,17 @@ namespace ControleEstoqueApi.Controllers
         [HttpPost]
         public async Task<ActionResult<EstoqueModel>> Cadastar([FromBody] EstoqueModel estoqueModel)
         {
-            estoqueModel.DataDeEntrada = DateTime.Now;
-
-            if (estoqueModel.DataDeSaida == null)
-                estoqueModel.DataDeSaida = null;
-
             EstoqueModel estoque = await _estoqueRepositorio.Adicionar(estoqueModel);
+            ProdutoModel produto = await _produtoRepositorio.BuscarPorCodigoItem(estoqueModel.CodigoItem);
+            FuncionarioModel funcionario = await _funcionarioRepositorio.BuscarPorNome(estoqueModel.NomeFuncionario);
+
+            if (estoque is not null)
+                return BadRequest("Erro: codigo do estoque já foi cadastrado.");
+            else if (produto is null)
+                return BadRequest("Erro: codigo do item não encontrado.");
+            else if (funcionario is null)
+                return BadRequest("Erro: nome do funcionário não encontrado.");
+
             return Ok(estoque);
         }
 

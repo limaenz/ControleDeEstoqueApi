@@ -34,6 +34,10 @@ namespace ControleEstoqueApi.Controllers
         public async Task<ActionResult<ProdutoModel>> Cadastar([FromBody] ProdutoModel produtoModel)
         {
             ProdutoModel produto = await _produtoRepositorio.Adicionar(produtoModel);
+
+            if (produto is null)
+                return BadRequest("Erro: esse produto já esta cadastrado.");
+
             return Ok(produto);
         }
 

@@ -18,13 +18,16 @@ namespace ControleEstoqueApi.Repositories
 
         public async Task<FuncionarioModel> BuscarPorId(int id)
         {
-            return await _dbContext.Funcionarios.FirstOrDefaultAsync(X => X.Id == id);
+            return await _dbContext.Funcionarios.FirstOrDefaultAsync(x => x.Id == id);
         }
         public async Task<FuncionarioModel> BuscarPorCPF(string cpf)
         {
-            return await _dbContext.Funcionarios.FirstOrDefaultAsync(X => X.CPF == cpf);
+            return await _dbContext.Funcionarios.FirstOrDefaultAsync(x => x.CPF == cpf);
         }
-
+        public async Task<FuncionarioModel> BuscarPorNome(string nome)
+        {
+            return await _dbContext.Funcionarios.FirstOrDefaultAsync(x => x.Nome == nome);
+        }
         public async Task<List<FuncionarioModel>> BuscarTodosOsFuncionarios()
         {
             return await _dbContext.Funcionarios.ToListAsync();

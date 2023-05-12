@@ -31,13 +31,20 @@ namespace ControleEstoqueApi.Repositories
                 .ToListAsync();
         }
 
-        public async Task<EstoqueModel> Adicionar(EstoqueModel estoque)
+        public async Task<EstoqueModel> Adicionar(EstoqueModel estoqueModel)
         {
-            await _dbContext.Estoque.AddAsync(estoque);
-            await _dbContext.SaveChangesAsync();
+            EstoqueModel estoque = await _dbContext.Estoque.FirstOrDefaultAsync(x => x.Codigo == estoqueModel.Codigo);
 
-            return estoque;
+            if (estoque is not null)
+                return null;
+            else
+            {
+                await _dbContext.Estoque.AddAsync(estoqueModel);
+                await _dbContext.SaveChangesAsync();
+                return estoqueModel;
+            }
         }
+
         public async Task<EstoqueModel> Atualizar(EstoqueModel estoque, string codigoEstoque)
         {
             var estoquePorId = await BuscarPorCodigoEstoque(codigoEstoque);

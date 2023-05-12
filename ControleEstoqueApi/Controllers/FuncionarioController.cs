@@ -38,10 +38,8 @@ namespace ControleEstoqueApi.Controllers
         {
             FuncionarioModel funcionario = await _funcionarioRepositorio.Adicionar(funcionarioModel);
 
-            if (funcionario == null)
-            {
-                return BadRequest("Credenciais inválidas.");
-            }
+            if (funcionario is null)
+                return BadRequest("Erro: esse funcionario já esta cadastrado.");
 
             return Ok(funcionario);
         }
