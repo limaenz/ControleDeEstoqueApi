@@ -15,9 +15,9 @@ namespace ControleEstoqueApi.Repositories
             _dbContext = controleEstoqueDbContext;
         }
 
-        public async Task<ProdutoModel> BuscarPorCodigoItem(string codigoItem)
+        public async Task<ProdutoModel> BuscarPorCodigoItem(string codigo)
         {
-            return await _dbContext.Produto.FirstOrDefaultAsync(x => x.Codigo == codigoItem);
+            return await _dbContext.Produto.FirstOrDefaultAsync(x => x.Codigo == codigo);
         }
 
         public async Task<List<ProdutoModel>> BuscarTodosOsProdutos()

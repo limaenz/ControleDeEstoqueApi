@@ -1,7 +1,7 @@
 ﻿using ControleEstoqueApi.Models;
 using ControleEstoqueApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Globalization;
 
 namespace ControleEstoqueApi.Controllers
 {
@@ -23,10 +23,10 @@ namespace ControleEstoqueApi.Controllers
             return Ok(produtos);
         }
 
-        [HttpGet("{codigoItem}")]
-        public async Task<ActionResult<ProdutoModel>> BuscarPorId(string codigoItem)
+        [HttpGet("{codigo}")]
+        public async Task<ActionResult<ProdutoModel>> BuscarPorCodigo(string codigo)
         {
-            ProdutoModel produto = await _produtoRepositorio.BuscarPorCodigoItem(codigoItem);
+            var produto = await _produtoRepositorio.BuscarPorCodigoItem(codigo);
             return Ok(produto);
         }
 
