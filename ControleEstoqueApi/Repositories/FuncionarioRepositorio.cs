@@ -28,10 +28,6 @@ namespace ControleEstoqueApi.Repositories
         {
             return await _dbContext.Funcionarios.FirstOrDefaultAsync(x => x.Nome == nome);
         }
-        public async Task<List<FuncionarioModel>> BuscarTodosOsFuncionarios()
-        {
-            return await _dbContext.Funcionarios.ToListAsync();
-        }
 
         public async Task<FuncionarioModel> Adicionar(FuncionarioModel funcionario)
         {
@@ -48,30 +44,30 @@ namespace ControleEstoqueApi.Repositories
                 return funcionario;
             }
         }
-        public async Task<FuncionarioModel> Atualizar(FuncionarioModel funcionario, int id)
+        public async Task<FuncionarioModel> Atualizar(FuncionarioModel funcionario, string cpf)
         {
-            var funcionarioPorId = await BuscarPorId(id);
+            var funcionarioPorCpf = await BuscarPorCPF(cpf);
 
-            if (funcionarioPorId is null)
-                throw new Exception($"Usuário para o ID: {id} não foi encontrado.");
+            if (funcionarioPorCpf is null)
+                throw new Exception($"Usuário para o CPF: {funcionario.CPF} não foi encontrado.");
 
-            funcionarioPorId.Nome = funcionario.Nome;
-            funcionarioPorId.CPF = funcionario.CPF;
+            funcionarioPorCpf.Nome = funcionario.Nome;
+            funcionarioPorCpf.CPF = funcionario.CPF;
 
-            _dbContext.Funcionarios.Update(funcionarioPorId);
+            _dbContext.Funcionarios.Update(funcionarioPorCpf);
             await _dbContext.SaveChangesAsync();
 
-            return funcionarioPorId;
+            return funcionarioPorCpf;
         }
 
-        public async Task<bool> Apagar(int id)
+        public async Task<bool> Apagar(string cpf)
         {
-            var funcionarioPorId = await BuscarPorId(id);
+            var funcionarioPorCpf = await BuscarPorCPF(cpf);
 
-            if (funcionarioPorId is null)
-                throw new Exception($"Usuário para o ID: {id} não foi encontrado.");
+            if (funcionarioPorCpf is null)
+                throw new Exception($"Usuário para o ID: {cpf} não foi encontrado.");
 
-            _dbContext.Funcionarios.Remove(funcionarioPorId);
+            _dbContext.Funcionarios.Remove(funcionarioPorCpf);
             await _dbContext.SaveChangesAsync();
 
             return true;

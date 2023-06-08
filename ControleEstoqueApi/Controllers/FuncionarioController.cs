@@ -19,17 +19,14 @@ namespace ControleEstoqueApi.Controllers
             _funcionarioRepositorio = funcionarioRepositorio;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<FuncionarioModel>>> BuscarTodosUsuarios()
+        [HttpGet("{cpf}")]
+        public async Task<ActionResult<FuncionarioModel>> BuscarPorCPF(string cpf)
         {
-            List<FuncionarioModel> funcionarios = await _funcionarioRepositorio.BuscarTodosOsFuncionarios();
-            return Ok(funcionarios);
-        }
+            FuncionarioModel funcionario = await _funcionarioRepositorio.BuscarPorCPF(cpf);
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<FuncionarioModel>> BuscarPorId(int id)
-        {
-            FuncionarioModel funcionario = await _funcionarioRepositorio.BuscarPorId(id);
+            if (funcionario is null)
+                return BadRequest("Erro: esse funcionario não foi encontrado.");
+
             return Ok(funcionario);
         }
 
@@ -44,18 +41,17 @@ namespace ControleEstoqueApi.Controllers
             return Ok(funcionario);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<FuncionarioModel>> Atualizar([FromBody] FuncionarioModel funcionarioModel, int id)
+        [HttpPut("{cpf}")]
+        public async Task<ActionResult<FuncionarioModel>> Atualizar([FromBody] FuncionarioModel funcionarioModel, string cpf)
         {
-            funcionarioModel.Id = id;
-            FuncionarioModel funcionario = await _funcionarioRepositorio.Atualizar(funcionarioModel, id);
+            FuncionarioModel funcionario = await _funcionarioRepositorio.Atualizar(funcionarioModel, cpf);
             return Ok(funcionario);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<FuncionarioModel>> Apagar(int id)
+        public async Task<ActionResult<FuncionarioModel>> Apagar(string cpf)
         {
-            bool apagado = await _funcionarioRepositorio.Apagar(id);
+            bool apagado = await _funcionarioRepositorio.Apagar(cpf);
             return Ok(apagado);
         }
 

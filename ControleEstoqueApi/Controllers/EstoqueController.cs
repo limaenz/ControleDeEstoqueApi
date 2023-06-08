@@ -28,10 +28,10 @@ namespace ControleEstoqueApi.Controllers
             return Ok(estoques);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<EstoqueModel>> BuscarPorId(string codigoEstoque)
+        [HttpGet("{codigo}")]
+        public async Task<ActionResult<EstoqueModel>> BuscarPorId(string codigo)
         {
-            EstoqueModel estoque = await _estoqueRepositorio.BuscarPorCodigoEstoque(codigoEstoque);
+            EstoqueModel estoque = await _estoqueRepositorio.BuscarPorCodigoEstoque(codigo);
             return Ok(estoque);
         }
 
