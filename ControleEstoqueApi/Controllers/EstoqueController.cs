@@ -2,6 +2,8 @@
 using ControleEstoqueApi.Repositories;
 using ControleEstoqueApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
+using System.Security.Cryptography.Xml;
 
 namespace ControleEstoqueApi.Controllers
 {
@@ -29,7 +31,7 @@ namespace ControleEstoqueApi.Controllers
         }
 
         [HttpGet("{codigo}")]
-        public async Task<ActionResult<EstoqueModel>> BuscarPorId(string codigo)
+        public async Task<ActionResult<EstoqueModel>> BuscarPorCodigo(string codigo)
         {
             EstoqueModel estoque = await _estoqueRepositorio.BuscarPorCodigoEstoque(codigo);
             return Ok(estoque);

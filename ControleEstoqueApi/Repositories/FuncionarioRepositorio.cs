@@ -51,6 +51,9 @@ namespace ControleEstoqueApi.Repositories
             if (funcionarioPorCpf is null)
                 throw new Exception($"Usuário para o CPF: {funcionario.CPF} não foi encontrado.");
 
+            if (funcionario.CPF is "")
+                throw new Exception($"Usuário para o CPF: {funcionario.CPF} não foi encontrado.");
+
             funcionarioPorCpf.Nome = funcionario.Nome;
             funcionarioPorCpf.CPF = funcionario.CPF;
 

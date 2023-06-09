@@ -44,6 +44,9 @@ namespace ControleEstoqueApi.Controllers
         [HttpPut("{cpf}")]
         public async Task<ActionResult<FuncionarioModel>> Atualizar([FromBody] FuncionarioModel funcionarioModel, string cpf)
         {
+            if (funcionarioModel.CPF is "")
+                return BadRequest("Erro: é necessário inserir o CPF para atualizar.");
+
             FuncionarioModel funcionario = await _funcionarioRepositorio.Atualizar(funcionarioModel, cpf);
             return Ok(funcionario);
         }
